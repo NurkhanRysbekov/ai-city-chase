@@ -1,0 +1,10 @@
+{
+  "name": "ai-city-chase",
+  "version": "1.0.0",
+  "description": "AI City Chase — A*, CSP, Q-learning және агенттер қолданылған браузерлік ойын",
+  "scripts": {
+    "start": "npx serve .",
+    "test": "node tests/headless.js"
+  },
+  "license": "MIT"
+}

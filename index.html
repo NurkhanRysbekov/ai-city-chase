@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI City Chase — Қысқы Астана</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+ <div class="card">
+  <h1>AI City Chase — Қысқы Астана</h1>
+  <div class="stat">Қысқы Астана көшелерін айналып (Бәйтерек, Хан Шатыр, Нұр Әлем көрінеді), 5 қапшықтағы ақшаны (💰) рақиб-роботтан бұрын жина. Полиция сені қуады. 3 қапшық алсаң жеңесің, рақиб 3 алса немесе көлік бұзылса ұтыласың. Басқару: WASD / көрсеткілер, Shift немесе Бос орын — нитро ⚡, M — дыбыс, Enter — қайта бастау. Түнде фараның жарығымен жүр!</div>
+  <canvas id="cv" width="800" height="500"></canvas>
+  <div class="pad" style="margin-top:8px"><button class="sec" data-k="left">◀</button><button class="sec" data-k="right">▶</button><button class="sec" data-k="down">Тежеу</button><button class="sec" data-k="nit">⚡</button><button data-k="up">Газ</button></div>
+ </div>
+ <div class="grid">
+  <div class="card">
+   <b>Параметрлер</b>
+   <div class="row">
+    <div><label>Полиция саны (1–5)</label><input id="nc" type="number" value="2"></div>
+    <div><label>Полиция жылдамдығы (150–260)</label><input id="cs" type="number" value="200"></div>
+    <div><label>A* эвристикасы</label><select id="heur"><option value="m">Manhattan</option><option value="u">h=0 (UCS)</option></select></div>
+    <div><label>Q-learning эпизод (50–3000)</label><input id="eps" type="number" value="600"></div>
+   </div>
+   <label>Seed</label><input id="seed" type="number" value="5">
+   <label>Көлік таңдау</label><select id="car"><option value="sport">🏎 Спорткөлік (жылдам, 100 күй)</option><option value="suv">🚙 Джип (берік, 150 күй)</option><option value="taxi">🚕 Такси (теңгерімді)</option></select>
+   <div class="row" style="margin-top:10px"><button id="new">Жаңа ойын</button><button class="sec" id="tests">Тесттер</button></div>
+   <div class="row" style="margin-top:8px"><button class="sec" id="dbg">A* жолын көрсету</button><button class="sec" id="theme">Тема</button></div>
+   <div class="row" style="margin-top:8px"><button class="sec" id="nt">Түн / Күн</button><button class="sec" id="rn">Қар</button></div>
+  </div>
+  <div class="card">
+   <b>AI панелі</b>
+   <div class="stat"><span class="tag">1-апта</span>Агенттер: <span id="s1">-</span></div>
+   <div class="stat"><span class="tag">2-апта</span>A*: <span id="s2">-</span></div>
+   <div class="stat"><span class="tag">3-апта</span>CSP: <span id="s3">-</span></div>
+   <div class="stat"><span class="tag">5-апта</span>Q-learning: <span id="s5">-</span></div>
+   <pre id="log"></pre>
+  </div>
+  <div class="card stat">
+   <b>Қалай жұмыс істейді?</b><br>
+   <b>Агенттер</b>: жолдағы көліктер — қарапайым рефлекс-агенттер (қиылыста кездейсоқ бұрылады), полиция — мақсатқа бағытталған агент.<br>
+   <b>A*</b>: полиция әр 0,5 с сайын қала торында сізге дейінгі ең қысқа жолды есептейді (f=g+h). «A* жолын көрсету» жолды сызады.<br>
+   <b>CSP</b>: ақша мен рақиб старты қиылыстарға backtracking арқылы орналасады: барлығы әртүрлі, бір-бірінен және стартыңыздан алыс.<br>
+   <b>Q-learning</b>: рақиб-робот әр ақша үшін қиылыстар графында жүріп үйренеді (қадам −1, ақша +50) және үйренген саясатпен жүреді.<br>
+   <b>Бонустар</b>: 🔧 көлікті жөндейді, ⚡ нитроны толтырады (20 секундта қайта пайда болады). Деңгейге 150 секунд беріледі. Таңдалған көлік жылдамдыққа және беріктікке әсер етеді.<br>
+   Шектеу: полиция қозғалыс физикасын A* жолымен ғана басқарады, сондықтан бұрыштарда кейде ілініп қалуы мүмкін.
+  </div>
+ </div>
+</div>
+<script src="js/game.js"></script>
+</body>
+</html>
